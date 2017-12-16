@@ -28,10 +28,11 @@ Next, we are asked about the biggest component in the graph, so we delete the ve
 g1 <- delete.vertices(g,c(24,11,10,12,25,26,31,13)) #delete anything but the biggest component
 g1$layout <- layout.fruchterman.reingold(g1)
 ```
+### a)
 
 Now we will use the modified graph to check which actor has the highest cenerality rank by the 3 different methods:
 
-### a)
+### i)
 
 using the following code:
 
@@ -42,7 +43,7 @@ which(max(bet) == bet)
 ```
 we discover that **sloan** is the actor with the highest bewtweenness rank.
 
-### b)
+### ii)
 
 using the following code:
 
@@ -52,7 +53,7 @@ which(max(clo) == clo)
 ```
 we discover that **torres** is the actor with the highest closeness rank.
 
-### c)
+### iii)
 
 using the following code:
 
@@ -62,3 +63,6 @@ eig <- eigen_centrality(g1, directed = FALSE, scale = TRUE, weights = NULL,
 which(eig$vector == 1)
 ```
 we discover that **karev** is the actor with the highest Eigenvector rank.
+
+### b)
+
