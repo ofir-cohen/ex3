@@ -40,6 +40,25 @@ bet <- betweenness(g1, v = V(g1), directed = FALSE, weights = NULL,
             nobigint = TRUE, normalized = FALSE)
 which(max(bet) == bet)
 ```
-we discover that *sloan* is the actor with the highest bewtweenness rank.
+we discover that **sloan** is the actor with the highest bewtweenness rank.
 
 ### b)
+
+using the following code:
+
+```{r}
+clo <- closeness(g1, vids = V(g1),weights = NULL, normalized = FALSE)
+which(max(clo) == clo)
+```
+we discover that **torres** is the actor with the highest closeness rank.
+
+### c)
+
+using the following code:
+
+```{r}
+eig <- eigen_centrality(g1, directed = FALSE, scale = TRUE, weights = NULL,
+                 options = arpack_defaults)
+which(eig$vector == 1)
+```
+we discover that **karev** is the actor with the highest Eigenvector rank.
