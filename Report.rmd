@@ -84,6 +84,6 @@ we get:
 The following colored graph:
 
 ### Screenshot of the graph
-![Image of graph](https://github.com/ex3/images/gc_colored_graph.PNG)
+![Image of graph](https://github.com/ofir-cohen/ex3/blob/master/images/gc_colored_graph.PNG)
 
 
