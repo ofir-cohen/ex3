@@ -84,6 +84,6 @@ we get:
 The following colored graph:
 
 ### Screenshot of the graph
-![Image of results](https://github.com/sionovd/Titanic-Assignment/blob/master/images/rpart.PNG)
+![Image of graph](https://github.com/ex3/images/gc_colored_graph.PNG)
 
 
