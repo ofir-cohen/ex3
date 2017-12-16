@@ -73,8 +73,7 @@ using the following code:
 ```{r}
 gc <-  edge.betweenness.community(g1)
 memb <- membership(gc)
-plot(g, vertex.size=5, #vertex.label=NA,
-     vertex.color=memb, asp=FALSE)
+plot(g, vertex.size=5, vertex.color=memb, asp=FALSE)
 View(gc)
 ```
 we get:
@@ -94,4 +93,28 @@ The algorithm produced 6 communities with the sizes of 4,5,4,4,4,3 ordered by id
 
 The modularity value we got is 0.47
 
-## Algorithm 2 - 
+## Algorithm 2 - walktrap.community
+
+using the following code:
+
+```{r}
+gc1 <- walktrap.community(g1)
+gc1
+plot(g1,  vertex.size=5, vertex.color=membership(gc1), asp=FALSE)
+```
+we get:
+
+### i)
+
+The following colored graph:
+
+### Screenshot of the graph
+![Image of graph](https://github.com/ofir-cohen/ex3/blob/master/images/gc1_colored_graph.PNG)
+
+### ii) 
+
+The algorithm produced 7 communities with the sizes of 4,5,4,4,4,3 ordered by id.
+
+### iii) 
+
+The modularity value we got is 0.4
