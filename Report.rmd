@@ -1,1 +1,45 @@
+# ex3 - Data Collection & Network Analysis
 
+## Question 1
+
+First, we load the requiered packeges:
+
+```{r}
+#install.packages("igraph")
+#install.packages("digest")
+#install.packages("rgl")
+library("igraph")
+library("digest")
+library("rgl")
+```
+
+Then, we read the data into a graph
+
+```{r}
+ga.data <- read.csv('ga_edgelist.csv', header = T)
+g <- graph.data.frame(ga.data,directed = F)
+g$layout <- layout.fruchterman.reingold(g)
+```
+
+Next, we are asked about the biggest component in the graph, so we delete the vertices that are not part of it:
+(we knew what the verticies were by plotting and inspecting the graph manually)
+
+```{r}
+g1 <- delete.vertices(g,c(24,11,10,12,25,26,31,13)) #delete anything but the biggest component
+g1$layout <- layout.fruchterman.reingold(g1)
+```
+
+Now we will use the modified graph to check which actor has the highest cenerality rank by the 3 different methods:
+
+### a)
+
+using the following code:
+
+```{r}
+bet <- betweenness(g1, v = V(g1), directed = FALSE, weights = NULL,
+            nobigint = TRUE, normalized = FALSE)
+which(max(bet) == bet)
+```
+we discover that *sloan* is the actor with the highest bewtweenness rank.
+
+### b)
