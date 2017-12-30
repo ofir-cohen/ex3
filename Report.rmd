@@ -118,3 +118,62 @@ The algorithm produced 7 communities with the sizes of 7,4,3,3,3,2,2 ordered by 
 ### iii) 
 
 The modularity value we got is 0.4
+
+## Question 2
+
+### i)
+
+We have decided to model a twitter's user personal network, which includes the twitter users that he follows or that are following him.
+We first start by loading the relevant packeges:
+
+```{r}
+#install.packages("twitteR")
+#install.packages("igraph")
+library("twitteR")
+library("igraph")
+```
+Then, we set up the twitter oauth connection:
+
+```{r}
+consumer_key <- "my key (left out for security reasons)"
+consumer_secret <- "my secret (left out for security reasons)"
+access_token <- "my token (left out for security reasons)"
+access_secret <- "my access secret (left out for security reasons)"
+setup_twitter_oauth(consumer_key, consumer_secret,access_token,access_secret)
+```
+
+Since we had no twitter accounts, we searched a random user on twitter that has suffiecent number of followers and users that he follows.
+we found the user "derectorj" and used him as the center of our network graph.
+we start our data collection by getting both of his friends(users that he follows) and followers IDs, and then converting the IDs to names. we limit the number of connections to each group (freinds and followers) to be 20, for better looking graph.
+
+```{r}
+num_of_connections=20
+friendsIDs<-lookupUsers(center$getFriendIDs())
+followersIDs<-lookupUsers(center$getFollowerIDs())
+friends <- sapply(friendsIDs[1:num_of_connections],name)
+followers <- sapply(followersIDs[1:num_of_connections],name)
+```
+in the next sections we will describe the rest of the process
+
+### ii)
+
+We defined our nodes to be twitter users that are either following or followed by our center user(derectorj).
+our graph is directed, and an edge from x to y represents that the user x is following the user y.
+to acheive this edge list, we created a dataframe with two columns - "User" that represent a twitter user (the x in our edge)
+and "Following" that represents the twitter user that user x is following (y in our edge).
+
+```{r}
+edges <- merge(data.frame(User='derectorj', Following=friends), data.frame(User=followers, Following='derectorj'), all=T)
+```
+
+### iii)
+
+After having both nodes and edges, we create a directed grpah as explained above, and plot him:
+
+```{r}
+Network <- graph.data.frame(edges, directed = T)
+tkplot(Network,vertex.color="lightblue",vertex.size = 20)
+```
+
+### Screenshot of the graph
+![Image of graph](https://github.com/ofir-cohen/ex3/blob/master/images/network_graph.PNG)
