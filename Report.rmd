@@ -216,3 +216,58 @@ eig <- eigen_centrality(Network, directed = TRUE, scale = TRUE, weights = NULL,
                         options = arpack_defaults)
 ```
 but our graph is directed and acyclic and therefore all eigenvector centralities are zeros
+
+### d) part 2)
+
+## Algorithm 1 - Girvan-Newman community detection (edge-bewtweenness)
+
+using the following code:
+
+```{r}
+gc <-  edge.betweenness.community(Network)
+memb <- membership(gc)
+tkplot(Network, vertex.size=20, vertex.color=memb, asp=FALSE)
+View(gc)
+```
+we get:
+
+### i)
+
+The same original graph: 
+### Screenshot of the graph
+![Image of graph](https://github.com/ofir-cohen/ex3/blob/master/images/network_graph.PNG)
+
+### ii) 
+
+The algorithm produced 1 community with all 41 nodes, since all nodes are connected by one edge to the center.
+
+### iii) 
+
+The modularity value is undefined for directed graphs in this algorithm.
+
+## Algorithm 2 - walktrap.community
+
+using the following code:
+
+```{r}
+gc1 <- walktrap.community(Network)
+gc1
+tkplot(Network,  vertex.size=20, vertex.color=membership(gc1), asp=FALSE)
+```
+we get:
+
+### i)
+
+The following colored graph:
+
+### Screenshot of the graph
+![Image of graph](https://github.com/ofir-cohen/ex3/blob/master/images/colored_Network_graph.PNG)
+
+### ii) 
+
+The algorithm produced 41 communities, each with one node.
+
+### iii) 
+
+The modularity value we got is 0
+
