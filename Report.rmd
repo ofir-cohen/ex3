@@ -121,7 +121,7 @@ The modularity value we got is 0.4
 
 ## Question 2
 
-### i)
+### a)
 
 We have decided to model a twitter's user personal network, which includes the twitter users that he follows or that are following him.
 We first start by loading the relevant packeges:
@@ -155,7 +155,7 @@ followers <- sapply(followersIDs[1:num_of_connections],name)
 ```
 in the next sections we will describe the rest of the process
 
-### ii)
+### b)
 
 We defined our nodes to be twitter users that are either following or followed by our center user(derectorj).
 our graph is directed, and an edge from x to y represents that the user x is following the user y.
@@ -166,7 +166,7 @@ and "Following" that represents the twitter user that user x is following (y in 
 edges <- merge(data.frame(User='derectorj', Following=friends), data.frame(User=followers, Following='derectorj'), all=T)
 ```
 
-### iii)
+### c)
 
 After having both nodes and edges, we create a directed grpah as explained above, and plot him:
 
@@ -177,3 +177,42 @@ tkplot(Network,vertex.color="lightblue",vertex.size = 20)
 
 ### Screenshot of the graph
 ![Image of graph](https://github.com/ofir-cohen/ex3/blob/master/images/network_graph.PNG)
+
+
+### d)
+
+we will now answer question one again, this time with our network graph:
+
+### i)
+
+using the following code:
+
+```{r}
+bet <- betweenness(Network, v = V(Network), directed = TRUE, weights = NULL,
+                   nobigint = TRUE, normalized = FALSE)
+which(max(bet) == bet)
+```
+we discover that **derectorj** is the actor with the highest bewtweenness rank.
+we of course expected that to be the answer since our graph was constructed around him.
+
+### ii)
+
+using the following code:
+
+```{r}
+clo <- closeness(Network, vids = V(Network),weights = NULL, normalized = FALSE)
+which(max(clo) == clo)
+```
+we discover that there are 20 nodes with the same highest closeness rank.
+these 20 nodes are all the nodes with an edge that is coming out of them to the center(derectorj).
+the rest of the nodes have no outgoing edges and therefore their closeness rank is lower.
+
+### iii)
+
+we used the following code:
+
+```{r}
+eig <- eigen_centrality(Network, directed = TRUE, scale = TRUE, weights = NULL,
+                        options = arpack_defaults)
+```
+but our graph is directed and acyclic and therefore all eigenvector centralities are zeros
